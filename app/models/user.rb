@@ -12,7 +12,8 @@ class User < ApplicationRecord
 										uniqueness: { case_sensitive: false }
 
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  #has secure password catches true nils at creation, this is for update (remain same)
 
   # Returns the hash digest of the given string.
   def User.digest(string)

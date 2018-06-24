@@ -1,0 +1,16 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <%= render @users %>
+</ul>
+
+<%= will_paginate %>
+
+<!--
+  <% @users.each do |user| %>
+    <%= render user %> <!-- that is user as in user variable of class user, BUT uses _user partial automatically!--
+  <% end %>
+  THIS WAS IN THE UL BEFORE, now not needed-->
