@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
 
   def new
@@ -14,14 +14,16 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
+    redirect_to root_url unless @user.activated? #they had a "and return unless ..." ?
+    #why was there a "and return" ? (listing 11.40) -stackoverflow> NOT NEEDED
   end
 
   def create
   	@user = User.new(user_params)
   	if @user.save
-  		flash[:success] = "Welcome to the Sample App!"
-      log_in @user
-  		redirect_to @user
+  		@user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+  		redirect_to root_url
   	else
   		render :new
   	end
