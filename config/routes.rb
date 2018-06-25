@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   #get 'users/new'
 
 	root 'static_pages#home'
@@ -16,5 +20,6 @@ Rails.application.routes.draw do
   resources :users
   resources :account_activations, only: :edit
   #GET  http://ex.co/account_activation/<token>/edit  edit  edit_account_activation_url(token)
-  #route provided looks like this (token === id)
+  #route provided looks like this^ (token === id)
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 end
