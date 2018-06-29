@@ -22,4 +22,8 @@ Rails.application.routes.draw do
   #GET  http://ex.co/account_activation/<token>/edit  edit  edit_account_activation_url(token)
   #route provided looks like this^ (token === id)
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :microposts,          only: [:create, :destroy]
+
+  get   '/microposts', to: 'static_pages#home' 
+  #extra not to give error on reload after unsuccessful microposting
 end
