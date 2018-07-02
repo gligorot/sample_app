@@ -17,12 +17,17 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers # GET > /users/1/following #collection for no ID
+    end
+  end
   resources :account_activations, only: :edit
   #GET  http://ex.co/account_activation/<token>/edit  edit  edit_account_activation_url(token)
   #route provided looks like this^ (token === id)
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
+  resources :relationships,       only: [:create, :destroy]
 
   get   '/microposts', to: 'static_pages#home' 
   #extra not to give error on reload after unsuccessful microposting

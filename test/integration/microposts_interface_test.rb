@@ -38,9 +38,9 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
   end
 
   test "micropost sidebar count" do
-    #log_in_as(@user)
-    #get root_path
-    #assert_match "#{Micropost.count} microposts", response.body 
+    log_in_as(@user)
+    get root_path
+    assert_match Micropost.count.to_s, response.body 
     #doesnt work like this wtf, it gives correct (34 and 34 in console)
     # User with zero microposts
     other_user = users(:malory)
